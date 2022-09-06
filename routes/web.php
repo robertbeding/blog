@@ -5,6 +5,7 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\User;
+use Dotenv\Loader\Loader;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,8 @@ use App\Models\User;
 
 Route::get('/', function () {
     return view('home', [
-        "title" => "Home"
+        "title" => "Home",
+        "active" => 'home'
     ]);
 });
 
@@ -28,7 +30,8 @@ Route::get('/about', function () {
         "title" => "About",
         "name" => "Robert Beding",
         "email" => "robert.beding@yahoo.com",
-        "image" => "anjing.jpg"
+        "image" => "anjing.jpg",
+        "active" => 'about'
     ]);
 });
 
@@ -38,6 +41,7 @@ Route::get('post/{post:slug}', [PostController::class, 'show']);
 Route::get('/categories', function(){
     return view('categories',[
         'title' => 'Post Categories',
+        "active" => 'categories',
         'categories' => Category::all()
     ]);
 });
@@ -45,8 +49,8 @@ Route::get('/categories', function(){
 Route::get('/categories/{category:slug}', function(Category $category){
     return view('posts',[
         'title' => "Post by Category: $category->name",
-        'posts' => $category->posts,
-        'category' => $category->nameload('category','author'),
+        "active" => 'categories',
+        'posts' => $category->posts->load('category','author')
     ]);
 });
 

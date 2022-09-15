@@ -9,7 +9,7 @@ class Post extends Model
 {
     use HasFactory;
 
-    // protected $fillable = ['title', 'excerpt', 'body']
+    protected $fillable = ['title', 'excerpt', 'body'];
     protected $guarded = ['id'];
     protected $with = ['category','author'];
 
@@ -42,5 +42,10 @@ class Post extends Model
     public function author()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

@@ -103,3 +103,4 @@
     </div>
 </div> --}}
 @endsection
+<script src="{{ asset('js/login.js')}}"></script>

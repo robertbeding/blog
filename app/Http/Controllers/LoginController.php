@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Alert;
-
-
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -18,7 +16,6 @@ class LoginController extends Controller
             'active' => 'login'
         ]);
     }
-
 
     public function regis(Request $request){
         $validatedData = $request->validate([
@@ -34,8 +31,31 @@ class LoginController extends Controller
         User::create($validatedData);
 
         // toast('Register Successfull!','success');
+        // return redirect('/login');
         // $request->session()->flash('success','Registration Successfull!! please login');
+        return redirect('/login')->with('toast_success','Register successfull please login' );
+    }
 
-        return redirect('/login')->with('success','Registration Successfull!! please login' );
+
+    public function auth(Request $request){
+        $credentials = $request->validate([
+            'email' => 'required|email:dns',
+            'password' => 'required'
+        ]);
+
+        if(Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/dashboard');
+        }
+
+        return back()->with('toast_error','Login failed');
+    }
+
+    public function logout(Request $request){
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
+
     }
 }

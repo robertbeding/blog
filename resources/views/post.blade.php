@@ -7,10 +7,13 @@
 
                 <h2 class="mb-4">{{ $post->title }}</h2>
                 <p>
-                    By. <a href="/blog?authors={{ $post->author->username }}" class="text-decoration-none">
-                        {{ $post->author->name }}</a> in <a href="/categories/{{ $post->category->slug }}"
-                        class="text-decoration-none"> {{ $post->category->name }}</a>
+                    By. <a href="/blog?author={{ $post->author->username }}"
+                        class="text-decoration-none">{{ $post->author->name }}</a> in <a
+                        href="/blog?category={{ $post->category->slug }}"
+                        class="text-decoration-none">{{ $post->category->name }}</a>
+                    {{ $post->created_at->diffForHumans() }}
                 </p>
+
                 <img src="https://via.placeholder.com/1200x400?{{ $post->category->name }}" class="card-img-top"
                     alt="{{ $post->category->name }}" class="img-fluid">
 

@@ -31,13 +31,37 @@
                                 <span data-feather="eye"></span></a>
                             <a href="#" class="badge bg-warning">
                                 <span data-feather="edit"></span></a>
-                            <a href="#" class="badge bg-danger">
-                                <span data-feather="trash"></span></a>
+                            <form action="/dashboard/posts/{{ $post->slug }}" method="post" class="d-inline">
+                                @method('delete')
+                                @csrf
+                                <button class="badge bg-danger border-0" onclick=" return confirm('are you sure')">
+                                <span data-feather="trash"></span></button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
+{{-- <script>
+    $('delete').click ( function(){
+        swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this imaginary file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          swal("Poof! Your imaginary file has been deleted!", {
+            icon: "success",
+          });
+        } else {
+          swal("Your imaginary file is safe!");
+        }
+      });
+    })
+</script> --}}
 @endsection
 

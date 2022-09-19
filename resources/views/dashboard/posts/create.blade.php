@@ -11,23 +11,43 @@
             @csrf
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" name="title">
+                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title"
+                    autofocus value="{{ old('title') }}">
+                @error('title')
+                    <div class="invalid-feddback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="slug" class="form-label">Slug</label>
-                <input type="text" class="form-control" id="slug" name="slug">
+                <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug"
+                    autofocus value="{{ old('slug') }}">
+                @error('slug')
+                    <div class="invalid-feddback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="mb-3">
-                <label for="category" class="form-lable">Category</label>
+                {{-- <label for="category_id" class="form-lable">Category</label> --}}
                 <select class="form-select" name="category_id">
-                    @foreach ($categories as $category )
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    <option selected>Choose Category</option>
+                    @foreach ($categories as $category)
+                        @if (old('category_id') == $category->id)
+                            <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                        @else
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endif
                     @endforeach
                 </select>
             </div>
             <div class="mb-3">
                 <label for="body" class="form-lable">Body</label>
-                <input id="body" type="hidden" name="body">
+                @error('body')
+                    <p class="text-danger">{{ $message }}</p>
+                @enderror
+                <input id="body" type="hidden" name="body" value="{{ old('body') }}">
                 <trix-editor input="body"></trix-editor>
             </div>
 
@@ -45,8 +65,9 @@
         //         .then(data => slug.value = data.slug)
         // });
 
-        document.addEventListener('trix-file-accept', function(e){
+        document.addEventListener('trix-file-accept', function(e) {
             e.preventDefault();
         })
     </script>
 @endsection
+

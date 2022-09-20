@@ -2,7 +2,6 @@
 
 
 @section('container')
-    @include('sweetalert::alert')
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     <div class="row justify-content-center ">
         <div class="col-md-7">
@@ -76,7 +75,6 @@
             </div>
         </div>
     </div>
-
-
+    @include('sweetalert::alert')
 <script src="{{ asset('js/login.js')}}"></script>
 @endsection

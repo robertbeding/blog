@@ -9,11 +9,14 @@
 
             <a href="/dashboard/posts" class="btn btn-success">Back to all my posts <span data-feather="arrow-left">
             </span></a>
-            <a href="" class="btn btn-warning">Edit <span data-feather="edit">
+            <a href="/dashboard/posts/{{ $post->slug }}/edit" class="btn btn-warning">Edit <span data-feather="edit">
             </span></a>
-            <a href="" class="btn btn-danger">Delete <span data-feather="trash">
-            </span></a>
-
+            <form action="/dashboard/posts/{{ $post->slug }}" method="POST" class="d-inline">
+                @method('delete')
+                @csrf
+                <button class="btn btn-danger border-0" onclick="return confirm('Are You sure?')"><span
+                data-feather="trash"></span>Delete</button>
+            </form>
             <img src="https://via.placeholder.com/1200x400?{{ $post->category->name }}"
                 alt="{{ $post->category->name }}" class="img-fluid mt-3">
 

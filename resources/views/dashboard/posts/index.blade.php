@@ -1,14 +1,15 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
+@include('sweetalert::alert')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">My Posts </h1>
     </div>
-    @if (session()->has('success'))
+    {{-- @if (session()->has('success'))
         <div class="alert alert-success" role="alert">
             {{ session('success') }}
         </div>
-    @endif
+    @endif --}}
     <div class="table-responsive col-lg-12">
         <a href="/dashboard/posts/create" class="btn btn-primary mb-2">Create New Post</a>
         <table class="table table-striped table-sm">
@@ -29,7 +30,7 @@
                         <td>
                             <a href="/dashboard/posts/{{ $post->slug }}" class="badge bg-info">
                                 <span data-feather="eye"></span></a>
-                            <a href="#" class="badge bg-warning">
+                            <a href="/dashboard/posts/{{ $post->slug }}/edit" class="badge bg-warning">
                                 <span data-feather="edit"></span></a>
                             <form action="/dashboard/posts/{{ $post->slug }}" method="post" class="d-inline">
                                 @method('delete')

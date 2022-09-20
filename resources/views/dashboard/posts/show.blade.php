@@ -17,8 +17,17 @@
                 <button class="btn btn-danger border-0" onclick="return confirm('Are You sure?')"><span
                 data-feather="trash"></span>Delete</button>
             </form>
-            <img src="https://via.placeholder.com/1200x400?{{ $post->category->name }}"
+
+            @if($post->image)
+            <div style="max-height: 350px; overflow:hidden">
+                <img src="{{ asset('storage/' . $post->image)}}"
                 alt="{{ $post->category->name }}" class="img-fluid mt-3">
+            </div>
+
+            @else
+            <img src="https://via.placeholder.com/1200x400?{{ $post->category->name }}"
+            alt="{{ $post->category->name }}" class="img-fluid mt-3">
+            @endif
 
             <article class="my-3 fs-5">
                 <p>{!! $post->body !!}</p>

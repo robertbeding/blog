@@ -44,6 +44,16 @@
                 </select>
             </div>
             <div class="mb-3">
+                <label for="image" class="form-lable">Post image</label>
+                <input class="form-control @error('image') is-invalid @enderror" type="file"
+                id="image" name="image" accept="image/*">
+                @error('image')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="mb-3">
                 <label for="body" class="form-lable">Body</label>
                 @error('body')
                     <p class="text-danger">{{ $message }}</p>

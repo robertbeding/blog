@@ -7,14 +7,14 @@
 
 
     <div class="col-lg-8">
-        <form action="/dashboard/posts" method="POST">
+        <form action="/dashboard/posts" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title"
                     autofocus value="{{ old('title') }}">
                 @error('title')
-                    <div class="invalid-feddback">
+                    <div class="invalid-feedback">
                         {{ $message }}
                     </div>
                 @enderror
@@ -24,7 +24,7 @@
                 <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug"
                     autofocus value="{{ old('slug') }}">
                 @error('slug')
-                    <div class="invalid-feddback">
+                    <div class="invalid-feedback">
                         {{ $message }}
                     </div>
                 @enderror
@@ -43,6 +43,16 @@
                 </select>
             </div>
             <div class="mb-3">
+                <label for="image" class="form-lable">Post image</label>
+                <input class="form-control @error('image') is-invalid @enderror" type="file"
+                id="image" name="image" accept="image/*">
+                @error('image')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="mb-3">
                 <label for="body" class="form-lable">Body</label>
                 @error('body')
                     <p class="text-danger">{{ $message }}</p>
@@ -50,7 +60,6 @@
                 <input id="body" type="hidden" name="body" value="{{ old('body') }}">
                 <trix-editor input="body"></trix-editor>
             </div>
-
             <button type="submit" class="btn btn-primary">Create</button>
         </form>
     </div>

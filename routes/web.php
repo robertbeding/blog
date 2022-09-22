@@ -2,10 +2,10 @@
 
 
 use App\Models\Category;
-
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardPostController;
+use App\Http\Controllers\AdminCategoryController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -68,4 +68,7 @@ Route::get('/categories/{category:slug}', function(Category $category){
         'posts' => $category->posts->load('category','author')
     ]);
 });
+
+Route::resource('/dashboard/categories', AdminCategoryController::class)->except('show')->middleware('auth')
+->middleware('admin');
 

@@ -28,7 +28,9 @@ class AdminCategoryController extends Controller
      */
     public function create()
     {
-
+        return view('dashboard.categories.create' ,[
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -39,11 +41,13 @@ class AdminCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $validateData = $request->validate([
-            'name' => 'required|max:255',
-            'slug' => 'required|unique:posts',
-        ]);
 
+        $validateData = $request->validate([
+
+            'name' => 'required|max:255',
+            'slug' => 'required|unique:categories',
+        ]);
+        dd($request->all());
         Post::create($validateData);
         return redirect('/dashboard/categories')->with('success','New post has been added!');
     }

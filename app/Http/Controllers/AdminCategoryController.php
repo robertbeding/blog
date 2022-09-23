@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
-
+use PhpParser\Node\Expr\New_;
 
 class AdminCategoryController extends Controller
 {
@@ -70,9 +70,11 @@ class AdminCategoryController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit(Category $category)
     {
-        //
+        return view('dashboard.categories.edit', [
+            'category' => $category,
+        ]);
     }
 
     /**
@@ -82,9 +84,29 @@ class AdminCategoryController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, Category $category)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'slug' => 'required'
+        ]);
+
+        $category = New Category;
+        $category->name = $request->input('name');
+        $category->slug = $request->input('slug');
+        $category->save();
+
+        // $rules = [
+        //     'name' => 'required|max:255',
+        // ];
+
+        // if($request->slug != $category->slug){
+        //     $rules['slug'] = 'required|unique:posts';
+        // }
+
+        // $validateData = $request->validate($rules);
+        // Post::where('id' , $category->id)->update($validateData);
+        return redirect('/dashboard/categories')->with('success','Post has been updated!');
     }
 
     /**

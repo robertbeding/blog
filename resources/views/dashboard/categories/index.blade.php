@@ -26,7 +26,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $category->name }}</td>
                         <td>
-                            <a href="/dashboard/categories/{{ $category->slug }}/edit" class="badge bg-warning">
+                            <a href="{{ route('categories.edit', $category->id) }}" class="badge bg-warning">
                                 <span data-feather="edit"></span></a>
                             <form action="{{ route('categories.destroy', $category->id)}}" method="post" class="d-inline">
                                 @method('delete')

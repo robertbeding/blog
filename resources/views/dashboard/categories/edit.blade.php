@@ -21,7 +21,7 @@
         <div class="mb-3">
             <label for="slug" class="form-label">Slug</label>
             <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug"
-                required autofocus value="{{ old('slug', $post->slug) }}">
+                required autofocus value="{{ old('slug', $category->slug) }}">
             @error('slug')
                 <div class="invalid-feddback">
                     {{ $message }}

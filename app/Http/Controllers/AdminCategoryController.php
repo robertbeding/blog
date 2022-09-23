@@ -47,10 +47,10 @@ class AdminCategoryController extends Controller
             'name' => 'required|max:255',
             'slug' => 'required|unique:categories',
         ]);
-        // dd($request->all());
-        Post::create($validateData);
-        // dump(ost);
-        return redirect('/dashboard/categories')->with('success','New post has been added!');
+
+        Category::create($validateData);
+
+        return redirect()->route('categories.index')->with('success','New post has been added!');
     }
 
     /**
@@ -93,10 +93,10 @@ class AdminCategoryController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(Category $category)
     {
         {
-            Post::destroy($post->id);
+            Category::destroy($category->id);
             return redirect('/dashboard/categories')->with('toast_success','Post has been deleted!');
         }
     }

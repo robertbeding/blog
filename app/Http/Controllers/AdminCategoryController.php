@@ -47,8 +47,9 @@ class AdminCategoryController extends Controller
             'name' => 'required|max:255',
             'slug' => 'required|unique:categories',
         ]);
-        dd($request->all());
+        // dd($request->all());
         Post::create($validateData);
+        // dump(ost);
         return redirect('/dashboard/categories')->with('success','New post has been added!');
     }
 

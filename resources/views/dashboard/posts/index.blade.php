@@ -11,7 +11,7 @@
         </div>
     @endif --}}
     <div class="table-responsive col-lg-12">
-        <a href="{{ route(/dashboard/posts/create) }}" class="btn btn-primary mb-2">Create New Post</a>
+        <a href="{{ route('posts.create') }}" class="btn btn-primary mb-2">Create New Post</a>
         <table class="table table-striped table-sm">
             <thead>
                 <tr>
